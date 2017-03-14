@@ -1,0 +1,89 @@
+@CHARSET "UTF-8";
+
+#bbs table {
+	width: 700px;
+	margin-left: 20px;
+	border: 1px solid #ababab;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+#bbs table caption {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#bbs table th, #bbs table td {
+	text-align: center;
+	border: 1px solid #ababab;
+	padding: 4px 10px;
+}
+
+.no {
+	width: 10%
+}
+
+.subject {
+	width: 40%
+}
+
+.file {
+	width:20%
+}
+
+.writer {
+	width: 15%
+}
+
+.reg {
+	width: 15%
+}
+
+
+.title {
+	background: #e74c3c;
+	color: #fff;
+}
+
+.odd {
+	background: silver
+}
+
+/* paging */
+table tfoot ol.paging {
+	list-style: none;
+}
+
+table tfoot ol.paging li {
+	float: left;
+	margin-right: 8px;
+}
+
+table tfoot ol.paging li a {
+	display: block;
+	padding: 3px 7px;
+	border: 1px solid #ababab;
+	color: #2f313e;
+	font-weight: bold;
+}
+
+table tfoot ol.paging li a:hover {
+	background: #ababab;
+	color: white;
+	font-weight: bold;
+}
+
+.disable {
+	padding: 3px 7px;
+	border: 1px solid silver;
+	color: silver;
+}
+
+.now {
+	padding: 3px 7px;
+	border: 1px solid #e74c3c;
+	background: #e74c3c;
+	color: white;
+	font-weight: bold;
+}

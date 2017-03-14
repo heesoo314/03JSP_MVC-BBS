@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mem">
+
+	<select id="login" parameterType="java.util.Map" resultType="mybatis.vo.MemVO">
+		select * from member
+		where id = #{id} and pwd = #{pwd}
+	</select>
+
+	<select id="getMem" parameterType="String" resultType="mybatis.vo.MemVO" >
+		select * from member
+		where id = #{id}
+	</select>
+
+	<insert id="regMem" parameterType="mybatis.vo.MemVO">
+		insert into member(id, pwd, name, email, phone, reg_date)
+    	values(#{id}, #{pwd}, #{name}, #{email}, #{phone}, sysdate)
+	</insert>
+	
+</mapper>

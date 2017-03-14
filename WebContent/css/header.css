@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+
+#header {
+  	width:auto;
+  	height:80px;
+  	margin-bottom:20px;
+  	background: #95a5a6;
+  	background-image: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_embroidery.png);
+  	font-family: 'Helvetica Neue', Arial, Sans-Serif;
+}
+
+#user {
+	float:right;
+	margin-right:10px;
+}
+
+#header h2{
+	display:inline-block;
+	margin-left:20px;
+	color:#fff;
+}
+
+#user span {
+	display:inline-block;
+	margin-top:50px;
+	margin-right:20px;
+	color:#fff;
+}

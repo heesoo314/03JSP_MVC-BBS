@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- //////////////////////////// SQL ////////////////////////////  -->
+	<select id="board_list" parameterType="java.util.Map" resultMap="map1">
+		select * from (
+			select rownum r, a.* from (
+				select * from board 
+				where status = 0
+			  	order by b_idx desc) a
+		) where r between #{begin} and #{end}
+	</select>
+
+	
+	<!-- 페이징 기법을 사용하기 위해 전체 게시물 개수와 전체 페이지 개수를 알아야 한다 -->
+	<select id="totalCnt" resultType="int">
+		select count(*) from board
+		where status = 0
+	</select>
+	
+	
+	<!-- 이전글/다음글 보기 기능을 수행하기 위해 게시물의 인덱스를 구해야 한다 -->	
+	<select id="firstIdx" resultType="int">
+		select min(b_idx) from board where status = 0	
+	</select>
+	
+	<select id="lastIdx" resultType="int">
+		select max(b_idx) from board where status = 0	
+	</select>
+	
+	<select id="preIdx" parameterType="int" resultType="int">
+		select max(b_idx) from (
+			select b_idx 
+			from board 
+			where status = 0 and #{b_idx} > b_idx
+			order by b_idx asc
+		)
+	</select>
+	
+	<select id="nextIdx" parameterType="int" resultType="int">
+		select min(b_idx) from (
+			select b_idx 
+			from board 
+			where status = 0 and b_idx > #{b_idx}
+			order by b_idx asc
+		)
+	</select>
+	
+	<!-- ////////////////////////// board ////////////////////////// -->
+	<select id="board_content" parameterType="String" resultMap="map1">
+		select * from board
+		where b_idx = #{b_idx} and status = 0
+	</select>
+	
+	<insert id="addBoard" parameterType="mybatis.bbs.vo.BoardVO">
+		
+		<if test="file_name == null">
+			insert into board(b_idx, title, writer, content, w_date, ip, hit, status)
+			values(board_seq.nextval, #{title},#{writer}, #{content}, sysdate, #{ip}, 0, 0)
+		</if>
+		<if test="file_name != null">
+			insert into board(b_idx, title, writer, content, file_name, ori_name, w_date, ip, hit, status)
+			values(board_seq.nextval, #{title},#{writer}, #{content}, #{file_name}, #{ori_name}, sysdate, #{ip}, 0, 0)
+		</if>	
+	</insert>
+	
+	
+	<update id="editBoard" parameterType="java.util.Map">
+		update board
+		set title = #{title}, content = #{content}, ip = #{ip}
+			<if test="file_name != null">
+			,file_name = #{file_name}, ori_name = #{ori_name}
+			</if>
+		where b_idx = #{b_idx}
+	</update>
+	
+	<update id="delBoard" parameterType="String">
+		update board
+		set status = 1
+		where b_idx = #{b_idx}
+	</update>	
+	
+	
+	
+	<!-- ////////////////////////// comment ////////////////////////// -->
+	
+	<select id="comm_list" parameterType="String" resultType="mybatis.bbs.vo.CommentVO">
+		select * from b_comment
+		where b_idx = #{b_idx}
+	</select>
+	
+	<select id="comment_content" parameterType="String" resultType="mybatis.bbs.vo.CommentVO">
+		select * from b_comment
+		where c_idx = #{c_idx}
+	</select>
+	
+	<insert id="addAnswer" parameterType="mybatis.bbs.vo.CommentVO">
+		insert into b_comment(c_idx, writer, content, w_date, ip, b_idx)
+		values(comment_seq.nextval, #{writer}, #{content}, sysdate, #{ip}, #{b_idx})
+	</insert>
+	
+	<delete id="delAnswer" parameterType="String">
+		delete from b_comment
+		where c_idx = #{c_idx}
+	</delete>
+	
+	<!-- ////////////////////////// resultMap ////////////////////////// -->
+	<resultMap type="mybatis.bbs.vo.BoardVO" id="map1">
+	
+		<!-- 1:N 관계에선 기본키 설정 필수! -->
+		<id column="b_idx" property="b_idx" />
+		
+		<collection property="c_list" 	ofType="mybatis.bbs.vo.CommentVO"
+					select="comm_list" 	column="b_idx" />
+					
+	</resultMap>
+	
+</mapper>
+

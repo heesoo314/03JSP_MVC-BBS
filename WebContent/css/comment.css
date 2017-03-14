@@ -1,0 +1,89 @@
+div#com {
+	width: 700px;
+	background: #efefef;
+	padding: 1em;
+	margin-left: 20px;
+}
+
+
+h2 {
+	text-align: center;
+	color: #a8a8a8;
+}
+
+.com_form {
+	max-width: 700px;
+	text-align: center;
+}
+
+.com_form input, 
+.com_form textarea {
+	border: 1px solid #ababab;
+	padding: 0.2em;
+	border-radius: 5px;
+	display: block;
+	width: 100%;
+	margin-top: 0.6em;
+	resize: none;
+}
+
+input[type=text], 
+input[type=button], 
+input[type=submit] {
+	color: black;
+	height: 30px;
+	line-height: 30px;
+}
+
+textarea {
+	height: 70px;
+}
+
+.com1 input[type="text"]:focus, 
+.com1 textarea:focus {
+	border-color: #e74c3c;
+}
+
+#save_btn {
+	color: white;
+	border:none;
+	background: #e74c3c;
+	padding: 0.2em;
+}
+
+.half {
+	float: left;
+	margin-bottom: 1em;
+}
+
+.left {
+	width: 140px;
+	margin-right: 20px;
+}
+
+.right {
+	width: 505px;
+}
+
+.right2 {
+	width: 415px;
+	margin-right: 20px;
+}
+
+.right3 {
+	width: 70px;
+}
+
+.right3 input {
+	background: #ababab
+}
+
+/* Clearfix */
+.cf:before, .cf:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.cf:after {
+	clear: both;
+}
